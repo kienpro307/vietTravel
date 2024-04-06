@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "623182499135",
+    "project_id": "lucky-draw-events-d1fd7",
+    "storage_bucket": "lucky-draw-events-d1fd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623182499135:android:14f55ae69b79946899978a",
+        "android_client_info": {
+          "package_name": "com.vietTravel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNH-GWAWTBTWU_VVrhAVnvzCNtnKiQoUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      },
+      "admob_app_id": "ca-app-pub-1939315010587936~2986943808"
+    }
+  ],
+  "configuration_version": "1"
+}

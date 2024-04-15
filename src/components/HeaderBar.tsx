@@ -15,6 +15,7 @@ interface HeaderSubScreenProps {
   title: string;
   moreAction?: React.ReactNode;
   center?: boolean;
+  avatar?: boolean;
 }
 
 const HeaderBar = (props: HeaderSubScreenProps) => {
@@ -84,6 +85,9 @@ const HeaderBar = (props: HeaderSubScreenProps) => {
         <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
           {props.moreAction}
         </View>
+      )}
+      {props.avatar && (
+        <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}></View>
       )}
     </View>
   );

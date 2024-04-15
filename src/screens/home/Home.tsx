@@ -27,6 +27,7 @@ const Home = () => {
       />
       <HeaderBar
         title="Home"
+        avatar={true}
         // moreAction={
         //   <TouchableOpacity style={styles.SettingContainer}>
         //     <SettingIcon

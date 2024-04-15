@@ -13,6 +13,7 @@ import {RootRouter} from '../type';
 import {COLORS, FONTSIZE, HEIGHT, WIDTH} from '../theme';
 import HomeIcon from '../iconSvg/HomeIcon';
 import UserIcon from '../iconSvg/UserIcon';
+import MapIcon from '../iconSvg/MapIcon';
 
 interface MenuBarProps {}
 
@@ -32,14 +33,13 @@ const BarItem = ({
   return (
     <View
       style={{
-        height: HEIGHT(15),
-        width: HEIGHT(15),
+        height: WIDTH(100 / 3),
+        width: WIDTH(100 / 3),
         borderRadius: HEIGHT(15),
         overflow: 'hidden',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-
         gap: 5,
       }}>
       <TouchableNativeFeedback
@@ -57,8 +57,6 @@ const BarItem = ({
             height: '100%',
             width: '100%',
             overflow: 'hidden',
-            borderTopLeftRadius: HEIGHT(4),
-            borderTopRightRadius: HEIGHT(4),
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
@@ -68,16 +66,14 @@ const BarItem = ({
           <Icon
             height={HEIGHT(2.8)}
             width={HEIGHT(2.8)}
-            fill={
-              active ? COLORS.primaryDarkBrownHex : COLORS.primaryGreyBrownHex
-            }
+            fill={active ? COLORS.primaryBrownHex : COLORS.primaryGreyBrownHex}
           />
           <Text
             numberOfLines={1}
             style={{
               fontSize: FONTSIZE(2),
               color: active
-                ? COLORS.primaryDarkBrownHex
+                ? COLORS.primaryBrownHex
                 : COLORS.primaryGreyBrownHex,
             }}>
             {title}
@@ -131,6 +127,16 @@ const MenuBar = (props: MenuBarProps) => {
           active={route.params?.screen === 'Home' || !route.params}
         />
         <BarItem
+          icon={MapIcon}
+          title="Map"
+          onPress={() => {
+            navigation.navigate('Main', {
+              screen: 'Map',
+            });
+          }}
+          active={route.params?.screen === 'Map'}
+        />
+        <BarItem
           icon={UserIcon}
           title="Account"
           onPress={() => {
@@ -165,6 +171,5 @@ const styles = StyleSheet.create({
     borderTopRightRadius: HEIGHT(4),
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: WIDTH(5),
   },
 });

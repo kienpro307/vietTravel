@@ -20,7 +20,7 @@ export const COLORS = {
   primaryLightBlueHex: '#94eaf4',
 
   primaryBgVaniHex: '#f6f1ea',
-  primaryLightBrownHex: '#876639',
+  primaryBrownHex: '#8C662C',
   primaryDarkBrownHex: '#35260f',
 };
 

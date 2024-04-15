@@ -7,6 +7,7 @@ import MenuBar from '../components/MenuBar';
 import Home from './home/Home';
 import {HOME_PAGE} from '../utils/utils';
 import User from './user/User';
+import Map from './map/Map';
 
 const Tab = createBottomTabNavigator<MainScreen>();
 
@@ -29,6 +30,7 @@ const HomeLayout = (props: HomeLayoutProps) => {
             }}
             initialRouteName={HOME_PAGE}>
             <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Map" component={Map} />
             <Tab.Screen name="User" component={User} />
           </Tab.Navigator>
         </View>

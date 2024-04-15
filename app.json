@@ -1,6 +1,6 @@
 {
-  "name": "WifiMasterPassword",
-  "displayName": "WIFI Master Password",
+  "name": "VietTravel",
+  "displayName": "VietTravel",
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-1939315010587936~2986943808",
     "delay_app_measurement_init": true

@@ -13,11 +13,13 @@ export type RootRouter = {
   };
 };
 
+//Thông tin người dùng khi đăng nhập
 export type UserLogin = {
   userName: string;
   password: string;
 };
 
+//Thông tin người dùng phải nhâp khi đăng ký
 export type UserRegister = {
   userName: string;
   phoneNumber: number;
@@ -27,7 +29,9 @@ export type UserRegister = {
   role: string;
 };
 
+//Thông tin người dùng
 export type UserInfo = {
+  userId: string;
   avatar: string;
   name: string;
   phoneNumber: number;
@@ -36,7 +40,9 @@ export type UserInfo = {
   numOfLiked: number;
 };
 
+//Thông tin di tích
 export type Place = {
+  placeId: string;
   name: string;
   images: string[];
   location: string;

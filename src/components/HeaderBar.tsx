@@ -5,10 +5,12 @@ import {
   StyleSheet,
   StatusBar,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import BackIcon from '../iconSvg/BackIcon';
 import {useNavigation} from '@react-navigation/native';
-import {COLORS, FONTSIZE, HEIGHT, WIDTH} from '../theme';
+import {COLORS, FONTFAMILY, FONTSIZE, HEIGHT, WIDTH} from '../theme';
+import {userInfoFake} from '../Data';
 
 interface HeaderSubScreenProps {
   onBack?: () => void;
@@ -16,6 +18,7 @@ interface HeaderSubScreenProps {
   moreAction?: React.ReactNode;
   center?: boolean;
   avatar?: boolean;
+  color?: boolean;
 }
 
 const HeaderBar = (props: HeaderSubScreenProps) => {
@@ -29,13 +32,15 @@ const HeaderBar = (props: HeaderSubScreenProps) => {
   return (
     <View
       style={{
-        marginTop: StatusBar.currentHeight,
+        marginTop: props.color ? 0 : StatusBar.currentHeight,
+        paddingTop: !props.color ? 0 : StatusBar.currentHeight,
         overflow: 'visible',
         alignItems: 'center',
         width: WIDTH(100),
-        height: HEIGHT(6),
+        height: !props.color ? HEIGHT(6) : 'auto',
         flexDirection: 'row',
         paddingHorizontal: props.onBack ? 0 : WIDTH(5),
+        backgroundColor: props.color ? COLORS.primaryBrownHex : '',
       }}>
       {props.onBack && (
         <TouchableOpacity
@@ -50,7 +55,9 @@ const HeaderBar = (props: HeaderSubScreenProps) => {
           <BackIcon
             height={HEIGHT(2.5)}
             width={HEIGHT(2.5)}
-            fill={COLORS.primaryWhiteHex}
+            fill={
+              !props.color ? COLORS.primaryBlackHex : COLORS.primaryWhiteHex
+            }
           />
         </TouchableOpacity>
       )}
@@ -72,11 +79,14 @@ const HeaderBar = (props: HeaderSubScreenProps) => {
         <Text
           numberOfLines={1}
           style={{
-            color: COLORS.primaryBlackHex,
+            color: !props.color
+              ? COLORS.primaryBlackHex
+              : COLORS.primaryWhiteHex,
             fontSize: FONTSIZE(2.8),
             flexShrink: 1,
             flex: 1,
             textAlignVertical: 'center',
+            fontFamily: FONTFAMILY.Bold,
           }}>
           {props.title}
         </Text>
@@ -87,7 +97,16 @@ const HeaderBar = (props: HeaderSubScreenProps) => {
         </View>
       )}
       {props.avatar && (
-        <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}></View>
+        <Image
+          source={{uri: userInfoFake.avatar}}
+          style={{
+            width: 45,
+            height: 45,
+            borderRadius: 25,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+          }}
+        />
       )}
     </View>
   );

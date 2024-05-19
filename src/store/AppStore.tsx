@@ -3,6 +3,7 @@ import {produce} from 'immer';
 import {persist, createJSONStorage} from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {REMOTE_KEY} from '../remoteConfig/RemoteConfig';
+import {Place} from '../type';
 
 export const useAppStore = create(
   persist(
@@ -12,11 +13,25 @@ export const useAppStore = create(
       muteBackgroundMusic: false,
       muteSound: false,
       viewBanner: true,
+      isLogin: false,
+      places: [],
 
       setLanguage: (language: string) =>
         set(
           produce(state => {
             state.Language = language;
+          }),
+        ),
+      setPlaces: (places: Place[]) =>
+        set(
+          produce(state => {
+            state.places = places;
+          }),
+        ),
+      setIsLogin: (value: boolean) =>
+        set(
+          produce(state => {
+            state.isLogin = value;
           }),
         ),
       setViewBanner: (view: boolean) =>

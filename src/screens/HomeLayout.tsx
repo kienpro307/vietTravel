@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
   Container: {
     height: HEIGHT(100),
     width: WIDTH(100),
-    backgroundColor: COLORS.primaryBgVaniHex,
+    backgroundColor: COLORS.primaryWhiteHex,
   },
 });

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   Container: {
     width: WIDTH(100),
     height: HEIGHT(100),
-    backgroundColor: COLORS.primaryBgVaniHex,
+    backgroundColor: COLORS.primaryWhiteHex,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

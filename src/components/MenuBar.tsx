@@ -118,7 +118,7 @@ const MenuBar = (props: MenuBarProps) => {
       <View style={styles.RowContainer}>
         <BarItem
           icon={HomeIcon}
-          title="Home"
+          title="Trang chủ"
           onPress={() => {
             navigation.navigate('Main', {
               screen: 'Home',
@@ -128,7 +128,7 @@ const MenuBar = (props: MenuBarProps) => {
         />
         <BarItem
           icon={MapIcon}
-          title="Map"
+          title="Bản đồ"
           onPress={() => {
             navigation.navigate('Main', {
               screen: 'Map',
@@ -138,7 +138,7 @@ const MenuBar = (props: MenuBarProps) => {
         />
         <BarItem
           icon={UserIcon}
-          title="Account"
+          title="Tài khoản"
           onPress={() => {
             navigation.navigate('Main', {
               screen: 'User',
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     overflow: 'hidden',
     flexDirection: 'row',
-    backgroundColor: COLORS.primaryWhiteHex,
+    backgroundColor: COLORS.primaryBgVaniHex,
     borderTopLeftRadius: HEIGHT(4),
     borderTopRightRadius: HEIGHT(4),
     justifyContent: 'space-between',

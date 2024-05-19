@@ -13,6 +13,7 @@ export const COLORS = {
   primaryGreyBrownHex: '#b8b8b8',
   primaryLightGreyHex: '#90919c',
   primaryGreyTextHex: '#d3d3da',
+  primaryWhiteGreyHex: '#dfe2e5',
 
   primaryWhiteHex: '#fff',
 
@@ -22,6 +23,8 @@ export const COLORS = {
   primaryBgVaniHex: '#f6f1ea',
   primaryBrownHex: '#8C662C',
   primaryDarkBrownHex: '#35260f',
+
+  primaryYellowHex: '#FFFD54',
 };
 
 export const FONTFAMILY = {

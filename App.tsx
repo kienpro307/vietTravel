@@ -30,9 +30,15 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import HomeLayout from './src/screens/HomeLayout';
 import {RootRouter} from './src/type';
+import Place from './src/screens/home/Place';
+import ChangePassword from './src/screens/user/ChangePassword';
+import Login from './src/screens/onBoard/Login';
+import Register from './src/screens/onBoard/Register';
+import OnBoardScreen from './src/screens/onBoard';
 
 const Tab = createBottomTabNavigator<RootRouter>();
 const RouterWrap = () => {
+  const isLogin = useAppStore((state: any) => state.isLogin);
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -41,13 +47,14 @@ const RouterWrap = () => {
         screenOptions={{
           headerShown: false,
           header: () => null,
-        }}>
+        }}
+        initialRouteName={!isLogin ? 'OnBoard' : 'Main'}>
         <Tab.Screen name="Main" component={HomeLayout} />
-        {/* <Tab.Screen name="WifiQrShare" component={WifiQrShare} />
-        <Tab.Screen name="WifiList" component={WifiList} />
-        <Tab.Screen name="ShowPassWords" component={ShowPassWords} />
-        <Tab.Screen name="SpeedTest" component={SpeedTest} />
-        <Tab.Screen name="ConnectedDevices" component={ConnectedDevices} /> */}
+        <Tab.Screen name="Place" component={Place} />
+        <Tab.Screen name="ChangePassword" component={ChangePassword} />
+        <Tab.Screen name="Login" component={Login} />
+        <Tab.Screen name="Register" component={Register} />
+        <Tab.Screen name="OnBoard" component={OnBoardScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -57,6 +64,7 @@ function App(): JSX.Element {
   const {changeLanguage} = useLanguageChangeHook();
   useAdsInterRegister(interBackID, 'back', true);
   const currentLanguage = useAppStore((state: any) => state.Language);
+  const setPlaces = useAppStore((state: any) => state.setPlaces);
   // const viewBanner = useAppStore((state: any) => state.viewBanner);
 
   useEffect(() => {
@@ -72,6 +80,25 @@ function App(): JSX.Element {
   }, [currentLanguage]);
 
   useEffect(() => {
+    const fetchHistoricalSites = async () => {
+      try {
+        const response = await fetch(
+          'http://192.168.56.1:3000/api/historicalSites/all-historical-sites',
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setPlaces(data);
+        console.log('data: ', data);
+      } catch (error) {
+        console.error('Error fetching historical sites:', error);
+      }
+    };
+    fetchHistoricalSites();
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
     }, 500);
@@ -79,18 +106,18 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <GestureHandlerRootView style={{flex: 1}}> */}
-      <StatusBar
-        backgroundColor="transparent"
-        translucent
-        barStyle="dark-content"
-      />
-      {/* <CommonAppProvider> */}
-      {/* <SplashScreenLoading> */}
-      {/* <AdjustConfigProvider> */}
-      {/* <RemoteConfigProvider> */}
-      <I18nextProvider i18n={i18next}>
-        <AdsContextProvider>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <StatusBar
+          backgroundColor="transparent"
+          translucent
+          barStyle="dark-content"
+        />
+        {/* <CommonAppProvider> */}
+        {/* <SplashScreenLoading> */}
+        {/* <AdjustConfigProvider> */}
+        {/* <RemoteConfigProvider> */}
+        <I18nextProvider i18n={i18next}>
+          {/* <AdsContextProvider> */}
           {/* <OpenApp> */}
           {/* <UpdateContextProvider> */}
           <TourGuideProvider preventOutsideInteraction {...{borderRadius: 16}}>
@@ -104,13 +131,13 @@ function App(): JSX.Element {
           </TourGuideProvider>
           {/* </UpdateContextProvider> */}
           {/* </OpenApp> */}
-        </AdsContextProvider>
-      </I18nextProvider>
-      {/* </RemoteConfigProvider> */}
-      {/* </AdjustConfigProvider> */}
-      {/* </SplashScreenLoading> */}
-      {/* </CommonAppProvider> */}
-      {/* </GestureHandlerRootView> */}
+          {/* </AdsContextProvider> */}
+        </I18nextProvider>
+        {/* </RemoteConfigProvider> */}
+        {/* </AdjustConfigProvider> */}
+        {/* </SplashScreenLoading> */}
+        {/* </CommonAppProvider> */}
+      </GestureHandlerRootView>
     </SafeAreaView>
   );
 }

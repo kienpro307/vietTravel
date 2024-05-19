@@ -1,4 +1,5 @@
 import {NavigatorScreenParams} from '@react-navigation/native';
+import {Timestamp} from 'react-native-reanimated/lib/typescript/reanimated2/commonTypes';
 
 export type MainScreen = {
   Home: undefined;
@@ -11,6 +12,13 @@ export type RootRouter = {
   Language: {
     fromSetting?: boolean;
   };
+  Place: {
+    placeId: string;
+  };
+  ChangePassword: undefined;
+  Register: undefined;
+  Login: undefined;
+  OnBoard: undefined;
 };
 
 //Thông tin người dùng khi đăng nhập
@@ -49,4 +57,14 @@ export type Place = {
   rate: number;
   summary: string;
   description: string;
+};
+
+export type Comment = {
+  commentId: string;
+  userId: string;
+  placeId: string;
+  time: Timestamp;
+  data: string;
+  peopleLiked: string[];
+  numOfLiked: number;
 };

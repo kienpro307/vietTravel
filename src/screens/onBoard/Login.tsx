@@ -1,4 +1,5 @@
 import {
+  Alert,
   StatusBar,
   StyleSheet,
   Text,
@@ -16,19 +17,25 @@ import {
   dictionary2Trans,
 } from '../../utils/LanguageUtils';
 import ModalSuccess from '../user/ModalSuccess';
+import {useAppStore} from '../../store/AppStore';
 
 const Login = () => {
   const navigation = useNavigation<NavigationProp<RootRouter>>();
   const {dictionary2String} = useDictionaryToString();
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const currentPassword = useAppStore((state: any) => state.currentPassword);
 
   const handleOnBack = () => {
     navigation.navigate('OnBoard');
   };
 
   const handleSubmit = () => {
-    navigation.navigate('Main', {screen: 'Home'});
+    if (password == currentPassword) {
+      navigation.navigate('Main', {screen: 'Home'});
+    } else {
+      Alert.alert('Lỗi', 'Sai mật khẩu');
+    }
   };
   return (
     <View style={styles.Container}>

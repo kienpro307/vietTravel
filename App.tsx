@@ -64,7 +64,6 @@ function App(): JSX.Element {
   const {changeLanguage} = useLanguageChangeHook();
   useAdsInterRegister(interBackID, 'back', true);
   const currentLanguage = useAppStore((state: any) => state.Language);
-  const setPlaces = useAppStore((state: any) => state.setPlaces);
   // const viewBanner = useAppStore((state: any) => state.viewBanner);
 
   useEffect(() => {
@@ -79,24 +78,24 @@ function App(): JSX.Element {
     fetch();
   }, [currentLanguage]);
 
-  useEffect(() => {
-    const fetchHistoricalSites = async () => {
-      try {
-        const response = await fetch(
-          'http://192.168.56.1:3000/api/historicalSites/all-historical-sites',
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setPlaces(data);
-        console.log('data: ', data);
-      } catch (error) {
-        console.error('Error fetching historical sites:', error);
-      }
-    };
-    fetchHistoricalSites();
-  }, []);
+  // useEffect(() => {
+  //   const fetchHistoricalSites = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         'http://192.168.56.1:3000/api/historicalSites/all-historical-sites',
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       const data = await response.json();
+  //       setPlaces(data);
+  //       console.log('data: ', data);
+  //     } catch (error) {
+  //       console.error('Error fetching historical sites:', error);
+  //     }
+  //   };
+  //   fetchHistoricalSites();
+  // }, []);
 
   useEffect(() => {
     setTimeout(() => {

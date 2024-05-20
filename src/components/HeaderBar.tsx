@@ -10,7 +10,8 @@ import {
 import BackIcon from '../iconSvg/BackIcon';
 import {useNavigation} from '@react-navigation/native';
 import {COLORS, FONTFAMILY, FONTSIZE, HEIGHT, WIDTH} from '../theme';
-import {userInfoFake} from '../Data';
+import {userInfoListFake} from '../Data';
+import {UserStore} from '../store/UserStore';
 
 interface HeaderSubScreenProps {
   onBack?: () => void;
@@ -23,7 +24,7 @@ interface HeaderSubScreenProps {
 
 const HeaderBar = (props: HeaderSubScreenProps) => {
   const navigation = useNavigation();
-
+  const user_index = UserStore((state: any) => state.user_index);
   const onPressBack = () => {
     if (props.onBack) {
       return props.onBack();
@@ -98,7 +99,7 @@ const HeaderBar = (props: HeaderSubScreenProps) => {
       )}
       {props.avatar && (
         <Image
-          source={{uri: userInfoFake.avatar}}
+          source={{uri: userInfoListFake[user_index].avatar}}
           style={{
             width: 45,
             height: 45,

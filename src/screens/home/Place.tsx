@@ -26,6 +26,7 @@ import {
   useDictionaryToString,
 } from '../../utils/LanguageUtils';
 import StarRateIcon from '../../iconSvg/RateIcon';
+import {useAppStore} from '../../store/AppStore';
 
 interface PlaceProps {
   route: RouteProp<RootRouter, 'Place'>;
@@ -63,6 +64,8 @@ const Star = ({active, onPress}: {active: boolean; onPress: () => void}) => {
 const Place = (props: PlaceProps) => {
   const navigation = useNavigation<NavigationProp<RootRouter>>();
   const {dictionary2String} = useDictionaryToString();
+  const isComment = useAppStore((state: any) => state.isComment);
+  const setIsComment = useAppStore((state: any) => state.setIsComment);
   const [rate, setRate] = useState<number>(0);
   const [comment, setComment] = useState('');
 
@@ -154,45 +157,108 @@ const Place = (props: PlaceProps) => {
           </Text>
         </View>
         <View style={styles.ForumContainer}>
-          <View style={styles.RateContainer}>
-            <Text
-              style={[styles.LabelText, {width: WIDTH(80), marginVertical: 0}]}>
-              {dictionary2Trans('Đánh giá')}
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                overflow: 'hidden',
-                gap: WIDTH(3),
-                justifyContent: 'center',
-                flex: 1,
-                alignItems: 'center',
-              }}>
-              <Star onPress={() => setRate(1)} active={rate >= 1} />
-              <Star onPress={() => setRate(2)} active={rate >= 2} />
-              <Star onPress={() => setRate(3)} active={rate >= 3} />
-              <Star onPress={() => setRate(4)} active={rate >= 4} />
-              <Star onPress={() => setRate(5)} active={rate >= 5} />
-            </View>
-            <TextInput
-              placeholder={dictionary2String('Đánh giá di tích...')}
-              value={comment}
-              onChange={event => setComment(event.nativeEvent.text)}
-              placeholderTextColor={COLORS.primaryLightGreyHex}
-              style={styles.TextInputContainer}
-            />
-            <TouchableOpacity style={styles.SubmitRateButton}>
+          {!isComment && (
+            <View style={styles.RateContainer}>
               <Text
                 style={[
                   styles.LabelText,
-                  {color: COLORS.primaryWhiteHex, fontSize: FONTSIZE(2.5)},
+                  {width: WIDTH(80), marginVertical: 0},
                 ]}>
-                {dictionary2Trans('Lưu')}
+                {dictionary2Trans('Đánh giá')}
               </Text>
-            </TouchableOpacity>
-          </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  overflow: 'hidden',
+                  gap: WIDTH(3),
+                  justifyContent: 'center',
+                  flex: 1,
+                  alignItems: 'center',
+                }}>
+                <Star onPress={() => setRate(1)} active={rate >= 1} />
+                <Star onPress={() => setRate(2)} active={rate >= 2} />
+                <Star onPress={() => setRate(3)} active={rate >= 3} />
+                <Star onPress={() => setRate(4)} active={rate >= 4} />
+                <Star onPress={() => setRate(5)} active={rate >= 5} />
+              </View>
+              <TextInput
+                placeholder={dictionary2String('Đánh giá di tích...')}
+                value={comment}
+                onChange={event => setComment(event.nativeEvent.text)}
+                placeholderTextColor={COLORS.primaryLightGreyHex}
+                style={styles.TextInputContainer}
+              />
+              <TouchableOpacity
+                onPress={() => setIsComment(true)}
+                style={styles.SubmitRateButton}>
+                <Text
+                  style={[
+                    styles.LabelText,
+                    {color: COLORS.primaryWhiteHex, fontSize: FONTSIZE(2.5)},
+                  ]}>
+                  {dictionary2Trans('Lưu')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
           <View style={styles.ListCommentContainer}>
             <Text style={styles.LabelText}>{dictionary2Trans('Comments')}</Text>
+            {isComment && (
+              <View style={styles.CommentContainer}>
+                <View style={styles.UserCommentContainer}>
+                  <Image
+                    source={{uri: userInfoFake.avatar}}
+                    style={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: 50,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginRight: 5,
+                    }}
+                  />
+                  <View style={styles.UserCommentInfo}>
+                    <Text style={styles.UserCommentName}>Lisa</Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        overflow: 'hidden',
+                        gap: 5,
+                        justifyContent: 'flex-start',
+                        flex: 1,
+                        alignItems: 'center',
+                      }}>
+                      <AntDesign
+                        name="star"
+                        size={HEIGHT(2)}
+                        color={COLORS.primaryBrownHex}
+                      />
+                      <AntDesign
+                        name="star"
+                        size={HEIGHT(2)}
+                        color={COLORS.primaryBrownHex}
+                      />
+                      <AntDesign
+                        name="star"
+                        size={HEIGHT(2)}
+                        color={COLORS.primaryBrownHex}
+                      />
+                      <AntDesign
+                        name="star"
+                        size={HEIGHT(2)}
+                        color={COLORS.primaryBrownHex}
+                      />
+                      <AntDesign
+                        name="star"
+                        size={HEIGHT(2)}
+                        color={COLORS.primaryBrownHex}
+                      />
+                    </View>
+                  </View>
+                </View>
+                <Text style={styles.CommentText}>Di tích rất hay</Text>
+              </View>
+            )}
             <View style={styles.CommentContainer}>
               <View style={styles.UserCommentContainer}>
                 <Image

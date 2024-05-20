@@ -43,11 +43,11 @@ const User = () => {
         <View style={styles.InfoIcon}>{icon}</View>
         <Text style={styles.InfoText}>{infoText}</Text>
         <TouchableOpacity style={styles.Change} onPress={handleChangeInfo}>
-          <FontAwesome6
+          {/* <FontAwesome6
             name="pencil"
             size={HEIGHT(2.5)}
             color={COLORS.primaryBlackHex}
-          />
+          /> */}
         </TouchableOpacity>
       </View>
     );

@@ -1,4 +1,5 @@
 import {
+  Alert,
   StatusBar,
   StyleSheet,
   Text,
@@ -16,21 +17,33 @@ import {
   dictionary2Trans,
 } from '../../utils/LanguageUtils';
 import ModalSuccess from './ModalSuccess';
+import {useAppStore} from '../../store/AppStore';
 
 const ChangePassword = () => {
   const navigation = useNavigation<NavigationProp<RootRouter>>();
   const {dictionary2String} = useDictionaryToString();
-  const [currentPassword, setCurrentPassword] = useState('');
+  const [currentPassword1, setCurrentPassword1] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [openModalSuccess, setOpenModalSuccess] = useState(false);
+  const setCurrentPassword = useAppStore(
+    (state: any) => state.setCurrentPassword,
+  );
+  const currentPassword = useAppStore((state: any) => state.currentPassword);
 
   const handleOnBack = () => {
     navigation.goBack();
   };
 
   const handleSubmit = () => {
-    setOpenModalSuccess(true);
+    if (currentPassword1 != currentPassword)
+      return Alert.alert('Lỗi', 'Sai mật khẩu');
+    if (newPassword == confirmPassword) {
+      setCurrentPassword(newPassword);
+      setOpenModalSuccess(true);
+    } else {
+      Alert.alert('Lỗi', 'Mật khẩu không trùng khớp');
+    }
   };
   return (
     <View style={styles.Container}>
@@ -46,8 +59,8 @@ const ChangePassword = () => {
         </Text>
         <TextInput
           placeholder={dictionary2String('Nhập mật khẩu hiện tại')}
-          value={currentPassword}
-          onChange={event => setCurrentPassword(event.nativeEvent.text)}
+          value={currentPassword1}
+          onChange={event => setCurrentPassword1(event.nativeEvent.text)}
           placeholderTextColor={COLORS.primaryLightGreyHex}
           style={styles.TextInputContainer}
         />

@@ -50,13 +50,14 @@ export type UserInfo = {
 
 //Thông tin di tích
 export type Place = {
+  location: {x: number; y: number};
   placeId: string;
   name: string;
   images: string[];
-  location: string;
   rate: number;
   summary: string;
   description: string;
+  _id: string;
 };
 
 export type Comment = {

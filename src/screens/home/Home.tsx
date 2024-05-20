@@ -14,11 +14,13 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootRouter} from '../../type';
 import {FlatList} from 'react-native-gesture-handler';
 import PlaceReview from './components/PlaceReview';
-import {placesFake, userInfoFake} from '../../Data';
+import {placesFake, userInfoFake, userInfoListFake} from '../../Data';
+import {UserStore} from '../../store/UserStore';
 
 const Home = () => {
   const navigation = useNavigation<NavigationProp<RootRouter>>();
   const [searchText, setSearchText] = useState('');
+  const user_index = UserStore((state: any) => state.user_index);
 
   const handlePressPlace = (placeId: string) => {
     navigation.navigate('Place', {placeId: placeId});
@@ -39,7 +41,7 @@ const Home = () => {
             fontWeight: 'bold',
             color: COLORS.primaryBlackHex,
           }}>
-          Chào {userInfoFake.name},
+          Chào {userInfoListFake[user_index].name},
         </Text>
         <Text
           style={{

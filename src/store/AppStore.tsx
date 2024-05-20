@@ -14,18 +14,25 @@ export const useAppStore = create(
       muteSound: false,
       viewBanner: true,
       isLogin: false,
-      places: [],
+      isComment: false,
+      currentPassword: 123456,
 
+      setCurrentPassword: (value: number) =>
+        set(
+          produce(state => {
+            state.currentPassword = value;
+          }),
+        ),
+      setIsComment: (value: boolean) =>
+        set(
+          produce(state => {
+            state.isComment = value;
+          }),
+        ),
       setLanguage: (language: string) =>
         set(
           produce(state => {
             state.Language = language;
-          }),
-        ),
-      setPlaces: (places: Place[]) =>
-        set(
-          produce(state => {
-            state.places = places;
           }),
         ),
       setIsLogin: (value: boolean) =>

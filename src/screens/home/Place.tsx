@@ -69,7 +69,7 @@ const Place = (props: PlaceProps) => {
   const [rate, setRate] = useState<number>(0);
   const [comment, setComment] = useState('');
 
-  const place = placesFake[0];
+  const place = placesFake.find(p => p.placeId === props.route.params.placeId);
 
   const handleOnBack = () => {
     navigation.goBack();
@@ -142,7 +142,9 @@ const Place = (props: PlaceProps) => {
                 size={HEIGHT(2.5)}
                 color={COLORS.primaryBrownHex}
               />
-              <Text style={styles.PlaceInfoText}>{place.rate}</Text>
+              <Text style={styles.PlaceInfoText}>
+                {isComment ? 4.6 : place.rate}
+              </Text>
             </View>
           </View>
 

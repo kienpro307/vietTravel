@@ -7,23 +7,39 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {COLORS, FONTSIZE, HEIGHT, WIDTH} from '../../theme';
 import HeaderBar from '../../components/HeaderBar';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {
+  NavigationProp,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native';
 import {RootRouter} from '../../type';
 import {FlatList} from 'react-native-gesture-handler';
 import PlaceReview from './components/PlaceReview';
 import {placesFake, userInfoFake, userInfoListFake} from '../../Data';
 import {UserStore} from '../../store/UserStore';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Home = () => {
   const navigation = useNavigation<NavigationProp<RootRouter>>();
   const [searchText, setSearchText] = useState('');
   const user_index = UserStore((state: any) => state.user_index);
+  const isFocus = useIsFocused();
+
+  useEffect(() => {
+    if (isFocus) {
+      setSearchText('');
+    }
+  }, [isFocus]);
 
   const handlePressPlace = (placeId: string) => {
     navigation.navigate('Place', {placeId: placeId});
+  };
+
+  const handlePressSearch = () => {
+    navigation.navigate('SearchPage', {keyWord: searchText});
   };
 
   return (
@@ -60,6 +76,11 @@ const Home = () => {
           placeholderTextColor={COLORS.primaryLightGreyHex}
           style={styles.TextInputContainer}
         />
+        <TouchableOpacity
+          onPress={handlePressSearch}
+          style={styles.SearchButton}>
+          <Ionicons name="search" size={24} color={COLORS.primaryBrownHex} />
+        </TouchableOpacity>
       </View>
       <View style={styles.FavoritePlaces}>
         <Text
@@ -143,16 +164,25 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primaryWhiteGreyHex,
     borderRadius: HEIGHT(2),
     paddingHorizontal: WIDTH(5),
+    flex: 1,
   },
   SearchBarContainer: {
     // height: HEIGHT(8),
     width: WIDTH(90),
+    flexDirection: 'row',
+    gap: WIDTH(3),
   },
   FavoritePlaces: {
     flexDirection: 'column',
     gap: HEIGHT(1) - WIDTH(1),
   },
   ContentContainerStyle: {gap: WIDTH(2)},
+  SearchButton: {
+    borderRadius: 8,
+    marginLeft: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default Home;

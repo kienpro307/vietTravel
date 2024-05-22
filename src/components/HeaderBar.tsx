@@ -8,10 +8,12 @@ import {
   Image,
 } from 'react-native';
 import BackIcon from '../iconSvg/BackIcon';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {COLORS, FONTFAMILY, FONTSIZE, HEIGHT, WIDTH} from '../theme';
 import {userInfoListFake} from '../Data';
 import {UserStore} from '../store/UserStore';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {RootRouter} from '../type';
 
 interface HeaderSubScreenProps {
   onBack?: () => void;
@@ -23,7 +25,7 @@ interface HeaderSubScreenProps {
 }
 
 const HeaderBar = (props: HeaderSubScreenProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootRouter>>();
   const user_index = UserStore((state: any) => state.user_index);
   const onPressBack = () => {
     if (props.onBack) {
@@ -98,16 +100,23 @@ const HeaderBar = (props: HeaderSubScreenProps) => {
         </View>
       )}
       {props.avatar && (
-        <Image
-          source={{uri: userInfoListFake[user_index].avatar}}
-          style={{
-            width: 45,
-            height: 45,
-            borderRadius: 25,
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-          }}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Main', {
+              screen: 'User',
+            });
+          }}>
+          <Image
+            source={{uri: userInfoListFake[user_index].avatar}}
+            style={{
+              width: 45,
+              height: 45,
+              borderRadius: 25,
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+            }}
+          />
+        </TouchableOpacity>
       )}
     </View>
   );

@@ -31,6 +31,8 @@ const Login = () => {
   };
 
   const handleSubmit = () => {
+    console.log('password', password);
+    console.log('current password', currentPassword);
     if (password == currentPassword) {
       navigation.navigate('Main', {screen: 'Home'});
     } else {

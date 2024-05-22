@@ -35,6 +35,7 @@ import ChangePassword from './src/screens/user/ChangePassword';
 import Login from './src/screens/onBoard/Login';
 import Register from './src/screens/onBoard/Register';
 import OnBoardScreen from './src/screens/onBoard';
+import SearchPage from './src/screens/home/SearchPage';
 
 const Tab = createBottomTabNavigator<RootRouter>();
 const RouterWrap = () => {
@@ -55,6 +56,7 @@ const RouterWrap = () => {
         <Tab.Screen name="Login" component={Login} />
         <Tab.Screen name="Register" component={Register} />
         <Tab.Screen name="OnBoard" component={OnBoardScreen} />
+        <Tab.Screen name="SearchPage" component={SearchPage} />
       </Tab.Navigator>
     </NavigationContainer>
   );

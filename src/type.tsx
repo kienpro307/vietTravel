@@ -19,6 +19,9 @@ export type RootRouter = {
   Register: undefined;
   Login: undefined;
   OnBoard: undefined;
+  SearchPage: {
+    keyWord: string;
+  };
 };
 
 //Thông tin người dùng khi đăng nhập
